@@ -7,7 +7,13 @@ import {
   Main,
   Footer,
   Row,
-  Col
+  Col,
+  Input,
+  Radio,
+  Form,
+  FormItem,
+  Switch,
+  Popover
 } from 'element-ui'
 
 Vue.use(Button)
@@ -18,3 +24,9 @@ Vue.use(Main)
 Vue.use(Footer)
 Vue.use(Row)
 Vue.use(Col)
+Vue.use(Input)
+Vue.use(Radio)
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Switch)
+Vue.use(Popover)
