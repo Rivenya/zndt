@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import GLYHome from './views/GLYHome.vue'
 import Register from './views/register.vue'
+import Yhxy from './components/yhxy.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -28,6 +29,11 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/yhxy',
+      name: 'yhxy',
+      component: Yhxy
     }
   ]
 })

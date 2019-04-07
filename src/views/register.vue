@@ -77,7 +77,7 @@ export default {
   min-height: 36px;
 }
 .top {
-  @include magrinTop;
+  @include magrinTop2;
 }
 .font {
   margin-top: 2%;

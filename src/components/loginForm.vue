@@ -31,7 +31,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary"
-                     @click="onSubmit">立即登录</el-button>
+                     @click="onSubmit('Form')">立即登录</el-button>
         </el-form-item>
         <el-form-item>
           <router-link to="/register">立即注册</router-link>
@@ -61,18 +61,28 @@ export default {
       },
       rules: {
         name: [{
-          required: true, message: "账号不能为空!", trigger: 'blur'
+          required: true, message: "(* ￣︿￣) 账号不能为空!", trigger: 'blur'
         }],
         password: [{
-          required: true, message: "密码不能为空!", trigger: 'blur'
-
+          required: true, message: "(* ￣︿￣) 密码不能为空!", trigger: 'blur'
         }],
       }
     }
   },
   methods: {
-    onSubmit () {
+    onSubmit (guizhe) {
+      this.$refs[guizhe].validate((valid) => {
+        if (valid) {
+          this.$post("login.php", { id: this.Form.name, ps: this.Form.password }).then(
+            (Response) => {
 
+            }
+          )
+        } else {
+          console.log('登录失败')
+          return false
+        }
+      })
     }
   }
 }

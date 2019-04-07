@@ -3,10 +3,15 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './plugins/element.js'
+
 // 引用字体图标
 import './assets/icon/iconfont.css'
-Vue.config.productionTip = false
+// 引用自己封装的axios,把post和get挂载到Vue的原型对象上面
+import { post, get } from './axiosFZ'
+Vue.prototype.$post = post
+Vue.prototype.$get = get
 
+Vue.config.productionTip = false
 new Vue({
   router,
   store,
