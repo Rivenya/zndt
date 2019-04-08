@@ -1,0 +1,47 @@
+
+├─public
+│      favicon.ico
+│      index.html
+│      znct.ico
+│      
+└─src
+    │  App.vue
+    │  axiosFZ.js
+    │  main.js
+    │  router.js
+    │  store.js
+    │  
+    ├─assets
+    │  │  background.jpg
+    │  │  background2.jpg
+    │  │  logo.png
+    │  │  
+    │  ├─icon
+    │  │      demo.css
+    │  │      demo_index.html
+    │  │      iconfont.css
+    │  │      iconfont.eot
+    │  │      iconfont.js
+    │  │      iconfont.svg
+    │  │      iconfont.ttf
+    │  │      iconfont.woff
+    │  │      iconfont.woff2
+    │  │      
+    │  └─scss
+    │          index.scss
+    │          
+    ├─components
+    │      HelloWorld.vue （没用）
+    │      login.vue	    （没用）
+    │      loginForm.vue
+    │      registerForm.vue
+    │      yhxy.vue
+    │      
+    ├─plugins
+    │      element.js
+    │      
+    └─views
+            GLYHome.vue （管理员登录）
+            Home.vue （用户登录）
+            register.vue （注册）
+            

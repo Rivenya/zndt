@@ -74,8 +74,21 @@ export default {
       this.$refs[guizhe].validate((valid) => {
         if (valid) {
           this.$post("login.php", { id: this.Form.name, ps: this.Form.password }).then(
-            (Response) => {
-
+            (response) => {
+              // 返回一个验证
+              if (response.data.yanzheng === "hege") {
+                console.log(response)
+                this.$message({
+                  message: "╰(*°▽°*)╯ 登录成功",
+                  type: "success",
+                })
+              } else {
+                console.log(response)
+                this.$message({
+                  message: "╰(*°▽°*)╯ 登录失败",
+                  type: "success",
+                })
+              }
             }
           )
         } else {

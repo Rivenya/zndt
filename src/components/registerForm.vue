@@ -76,10 +76,13 @@ export default {
       } else if (value.length > 16) {
         callback(new Error('(*￣︿￣)长度在 4 到 16 个字符'))
       } else {
+        // errmsg，elmentui的一个错误提示属性
         this.Form.errmsg = ""
+        // 发送axios检测用户名是否重复
         this.$get('register.php', { id: value }).then(
           (response) => {
-            if (response.data[0].id == value) {
+            console.log(response)
+            if (response.data.id == value) {
               this.Form.errmsg = "(*￣︿￣)  账号已存在!"
             }
             callback()
@@ -137,7 +140,8 @@ export default {
           this.Form.errmsg = ""
           // 发送请求
           this.$post("register.php", { id: this.Form.name, ps: this.Form.password }).then((response) => {
-            if (response.data.msg === 1) {
+            console.log(response)
+            if (response.data.errCode === 200) {
               this.$message({
                 message: "╰(*°▽°*)╯ 注册成功,返回登陆页面！",
                 type: "success",

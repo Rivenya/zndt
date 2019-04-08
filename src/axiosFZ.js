@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import router from './router'
+// import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import QS from 'qs'
@@ -9,6 +9,8 @@ Vue.use(VueAxios, axios)
 axios.defaults.timeout = 5000
 // 设置请求地址
 axios.defaults.baseURL = 'http://localhost/zndtjk'
+//设置请求的时候可以带cookie
+// axios.defaults.withCredentials = true
 
 //http拦截器,把响应加个响应头和调整格式，把JSON转成JSON字符串传过去
 axios.interceptors.request.use(
@@ -32,15 +34,23 @@ axios.interceptors.request.use(
 // http响应拦截器
 axios.interceptors.response.use(
   response => {
-    if (response.data.errCode == 2) {
-      router.push({
-        path: '/',
-        querry: { redirect: router.currentRoute.fullPath } //从哪个页面跳转
-      })
+    // 如果返回的状态码为200，说明接口请求成功，可以正常拿到数据
+    // 否则的话抛出错误
+    if (response.status === 200) {
+      return Promise.resolve(response)
+    } else {
+      return Promise.reject(response)
     }
-    return response
   },
   error => {
+    // if (error.response.data === 401) {
+    //   router.replace({
+    //     path: '/login',
+    //     query: {
+    //       redirect: router.currentRoute.fullPath
+    //     }
+    //   })
+    // }
     return Promise.reject(error)
   }
 )
