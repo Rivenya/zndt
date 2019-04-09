@@ -73,20 +73,30 @@ export default {
     onSubmit (guizhe) {
       this.$refs[guizhe].validate((valid) => {
         if (valid) {
-          this.$post("login.php", { id: this.Form.name, ps: this.Form.password }).then(
+          let quanxian = this.$route.name === 'Home' ? 0 : 1
+          this.$post("login.php", { id: this.Form.name, ps: this.Form.password, status: this.Form.status, quanxian: quanxian }).then(
             (response) => {
               // 返回一个验证
               if (response.data.yanzheng === "hege") {
-                console.log(response)
+                // 返回一个成功消息
                 this.$message({
                   message: "╰(*°▽°*)╯ 登录成功",
                   type: "success",
                 })
+                // token加入到vuex
+                this.$store.commit('loginChangeToken', response.data.token)
+                // 加入到localstorage
+                window.localStorage.setItem('token', response.data.token);
+                //判断权限,1是管理员，0是用户
+                if (response.data.power === '1') {
+                  this.$router.push({ name: 'znctgly' })
+                } else if (response.data.power === '0') {
+                  this.$router.push({ name: 'znctuser' })
+                }
               } else {
-                console.log(response)
                 this.$message({
-                  message: "╰(*°▽°*)╯ 登录失败",
-                  type: "success",
+                  message: "(* ￣︿￣) 账号或者密码错误",
+                  type: "error",
                 })
               }
             }

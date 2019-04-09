@@ -4,6 +4,9 @@ import Home from './views/Home.vue'
 import GLYHome from './views/GLYHome.vue'
 import Register from './views/register.vue'
 import Yhxy from './components/yhxy.vue'
+import Znctgly from './views/znctgly.vue'
+import Znctuser from './views/znctuser.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -34,6 +37,18 @@ export default new Router({
       path: '/yhxy',
       name: 'yhxy',
       component: Yhxy
+    },
+    {
+      path: '/znctgly',
+      name: 'znctgly',
+      component: Znctgly,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/znctuser',
+      name: 'znctuser',
+      component: Znctuser,
+      meta: { requiresAuth: true }
     }
   ]
 })

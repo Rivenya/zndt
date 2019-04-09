@@ -140,7 +140,6 @@ export default {
           this.Form.errmsg = ""
           // 发送请求
           this.$post("register.php", { id: this.Form.name, ps: this.Form.password }).then((response) => {
-            console.log(response)
             if (response.data.errCode === 200) {
               this.$message({
                 message: "╰(*°▽°*)╯ 注册成功,返回登陆页面！",
@@ -149,11 +148,22 @@ export default {
                 onClose: () => { this.$router.push({ name: 'home' }) },
                 duration: 1000
               })
+            } else {
+              this.$message({
+                message: "(* ￣︿￣) 注册失败",
+                type: "error",
+                center: true,
+                duration: 1000
+              })
             }
           })
         } else {
-          console.log('注册失败')
-          return false
+          this.$message({
+            message: "(* ￣︿￣) 注册失败",
+            type: "error",
+            center: true,
+            duration: 1000
+          })
         }
       })
     }

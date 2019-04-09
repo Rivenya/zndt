@@ -1,5 +1,5 @@
 import Vue from 'vue'
-// import router from './router'
+import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import QS from 'qs'
@@ -12,25 +12,27 @@ axios.defaults.baseURL = 'http://localhost/zndtjk'
 //设置请求的时候可以带cookie
 // axios.defaults.withCredentials = true
 
-//http拦截器,把响应加个响应头和调整格式，把JSON转成JSON字符串传过去
+//http请求拦截器,把响应加个响应头和调整格式，把JSON转成JSON字符串传过去
 axios.interceptors.request.use(
   config => {
-    // const token = getCookie('名称');注意使用的时候需要引入cookie方法，推荐js-cookie
     // 数据用qs转换
     config.data = QS.stringify(config.data)
     config.headers = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
-    // if(token){
-    //   config.params = {'token':token}
-    // }
+    // 判断头部要不要加authorition
+    if (config.url !== 'login.php' && config.url !== 'register.php') {
+      // 判断有没有token
+      if (localStorage.getItem('token')) {
+        config.headers.Authorization = localStorage.getItem('token')
+      }
+    }
     return config
   },
   error => {
     return Promise.reject(error)
   }
 )
-
 // http响应拦截器
 axios.interceptors.response.use(
   response => {
@@ -96,3 +98,51 @@ export function post(url, data = {}) {
       })
   })
 }
+
+// router钩子函数
+router.beforeEach((to, from, next) => {
+  // to and from are both route objects. must call `next`.
+  let token = localStorage.getItem('token')
+  if (
+    to.path === '/' ||
+    to.path === '/glyhome' ||
+    to.path === '/register' ||
+    to.path === '/yhxy'
+  ) {
+    next()
+  } else if (!token || token === '') {
+    router.replace({
+      path: '/',
+      query: {
+        redirect: to.fullPath
+      }
+    })
+  } else {
+    post('yanzhenglogin.php').then(response => {
+      // 判断登录信息过期没有,同时权限隔离
+      if (response.data.errCode === 401) {
+        router.replace({
+          path: '/',
+          query: {
+            redirect: to.fullPath
+          }
+        })
+      } else if (to.path === 'znctgly' && response.data.power !== '1') {
+        router.replace({
+          path: '/',
+          query: {
+            redirect: to.fullPath
+          }
+        })
+      } else if (to.path === 'znctuser' && response.data.power !== '0') {
+        router.replace({
+          path: '/',
+          query: {
+            redirect: to.fullPath
+          }
+        })
+      }
+    })
+    next()
+  }
+})
