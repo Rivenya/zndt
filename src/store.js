@@ -6,7 +6,12 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     // 定义全局token接收token
-    token: ''
+    token: '',
+    userInfo: {
+      id: window.sessionStorage.getItem('id'),
+      name: window.sessionStorage.getItem('name'),
+      avatar: window.sessionStorage.getItem('avatar')
+    }
   },
   mutations: {
     // 登录的时候改变token

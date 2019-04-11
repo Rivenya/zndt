@@ -73,7 +73,7 @@ export default {
     onSubmit (guizhe) {
       this.$refs[guizhe].validate((valid) => {
         if (valid) {
-          let quanxian = this.$route.name === 'Home' ? 0 : 1
+          let quanxian = this.$route.name === 'home' ? 0 : 1
           this.$post("login.php", { id: this.Form.name, ps: this.Form.password, status: this.Form.status, quanxian: quanxian }).then(
             (response) => {
               // 返回一个验证
@@ -85,7 +85,7 @@ export default {
                 })
                 // token加入到vuex
                 this.$store.commit('loginChangeToken', response.data.token)
-                // 加入到localstorage
+                // token加入到localstorage
                 window.localStorage.setItem('token', response.data.token);
                 //判断权限,1是管理员，0是用户
                 if (response.data.power === '1') {

@@ -14,7 +14,11 @@ import {
   FormItem,
   Switch,
   Popover,
-  Message
+  Message,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem,
+  Badge
 } from 'element-ui'
 
 Vue.use(Button)
@@ -33,3 +37,7 @@ Vue.use(Switch)
 Vue.use(Popover)
 Vue.component(Message.name, Message)
 Vue.prototype.$message = Message
+Vue.use(Dropdown)
+Vue.use(DropdownMenu)
+Vue.use(DropdownItem)
+Vue.use(Badge)

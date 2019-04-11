@@ -4,6 +4,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import QS from 'qs'
 Vue.use(VueAxios, axios)
+
 // 封装axios
 // 设置延迟时间
 axios.defaults.timeout = 5000
@@ -99,24 +100,15 @@ export function post(url, data = {}) {
   })
 }
 
-// router钩子函数
+// ------ -------------- router钩子函数
 router.beforeEach((to, from, next) => {
   // to and from are both route objects. must call `next`.
-  let token = localStorage.getItem('token')
   if (
-    to.path === '/' ||
     to.path === '/glyhome' ||
     to.path === '/register' ||
     to.path === '/yhxy'
   ) {
     next()
-  } else if (!token || token === '') {
-    router.replace({
-      path: '/',
-      query: {
-        redirect: to.fullPath
-      }
-    })
   } else {
     post('yanzhenglogin.php').then(response => {
       // 判断登录信息过期没有,同时权限隔离
@@ -127,20 +119,36 @@ router.beforeEach((to, from, next) => {
             redirect: to.fullPath
           }
         })
-      } else if (to.path === 'znctgly' && response.data.power !== '1') {
+      } else if (to.path === '/') {
+        if (response.data.power === '1') {
+          router.push({
+            path: '/znctgly'
+          })
+        } else if (response.data.power === '0') {
+          router.push({
+            path: '/znctuser'
+          })
+        }
+        next()
+      } else if (to.path === '/znctgly' && response.data.power !== '1') {
         router.replace({
           path: '/',
           query: {
             redirect: to.fullPath
           }
         })
-      } else if (to.path === 'znctuser' && response.data.power !== '0') {
+      } else if (to.path === '/znctuser' && response.data.power !== '0') {
         router.replace({
           path: '/',
           query: {
             redirect: to.fullPath
           }
         })
+      } else {
+        // 用户信息添加到sessionstorage
+        window.sessionStorage.setItem('id', response.data.id)
+        window.sessionStorage.setItem('name', response.data.name)
+        window.sessionStorage.setItem('avatar', response.data.avatar)
       }
     })
     next()
