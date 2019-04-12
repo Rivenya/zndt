@@ -6,7 +6,8 @@ import Register from './views/register.vue'
 import Yhxy from './components/yhxy.vue'
 import Znctgly from './views/znctgly.vue'
 import Znctuser from './views/znctuser.vue'
-
+import Znctusercontent from './components/znctuserContent.vue'
+import Error from './views/404.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -48,7 +49,20 @@ export default new Router({
       path: '/znctuser',
       name: 'znctuser',
       component: Znctuser,
-      meta: { requiresAuth: true }
+      meta: { requiresAuth: true },
+      redirect: '/znctuser/znctusercontent',
+      children: [
+        {
+          path: 'znctusercontent',
+          name: 'znctusercontent',
+          component: Znctusercontent
+        }
+      ]
+    },
+    {
+      path: '*',
+      name: 'Error',
+      component: Error
     }
   ]
 })

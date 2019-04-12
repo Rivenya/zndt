@@ -17,7 +17,15 @@ export default new Vuex.Store({
     // 登录的时候改变token
     loginChangeToken(state, n) {
       state.token = n
+    },
+    // 页面加载让vuex获得数据
+    addUserInfo(state, obj) {
+      state.userInfo = obj
     }
   },
-  actions: {}
+  getters: {
+    getUserName: state => {
+      return state.userInfo.name
+    }
+  }
 })

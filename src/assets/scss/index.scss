@@ -1,3 +1,5 @@
+// 主题颜色
+$color: #48c9b0;
 // 封装的屏幕字体
 @mixin screen($num) {
   @media screen and (min-width: 320px) {
@@ -70,6 +72,25 @@
     line-height: (1200rem * $num/16/1200);
   }
 }
+// 封装margin-left
+@mixin marginLeft($num) {
+  @media screen and (min-width: 320px) {
+    margin-left: (320% * $num/1200) !important;
+  }
+  @media screen and (min-width: 576px) {
+    margin-left: (576% * $num/1200) !important;
+  }
+  @media screen and (min-width: 768px) {
+    margin-left: (768% * $num/1200) !important;
+  }
+  @media screen and (min-width: 992px) {
+    margin-left: (1200% * $num/1200) !important;
+  }
+  @media screen and (min-width: 1200px) {
+    margin-left: (1200% * $num/1200) !important;
+  }
+}
+
 //背景图片
 .bg1 {
   background: url('../assets/background.jpg') no-repeat;

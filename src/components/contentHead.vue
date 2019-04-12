@@ -25,14 +25,15 @@
         <div class="grid-content bg-purple">
           <el-dropdown trigger="click">
             <span class="el-dropdown-link">
-              账号：{{name}}<i class="el-icon-caret-bottom el-icon--right"></i>
+              账号：&nbsp;&nbsp; &nbsp;{{$store.getters.getUserName}}<i class="el-icon-caret-bottom el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item class="clearfix">
                 <router-link to="">个人信息</router-link>
               </el-dropdown-item>
               <el-dropdown-item class="clearfix">
-                <router-link to="/">退出登录</router-link>
+                <router-link to=""
+                             @click.native="exit()">退出登录</router-link>
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -45,9 +46,16 @@
 export default {
   data () {
     return {
-      name: this.$store.state.userInfo.name
+
     }
   },
+  methods: {
+    exit () {
+      window.localStorage.removeItem('token')
+      window.sessionStorage.clear()
+      this.$router.push('/')
+    }
+  }
 }
 </script>
 <style lang="scss">
@@ -73,6 +81,9 @@ export default {
   .el-dropdown {
     @include screen(16);
     color: white;
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 .el-dropdown-menu {

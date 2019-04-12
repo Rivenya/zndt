@@ -3,6 +3,7 @@ import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import QS from 'qs'
+import store from './store.js'
 Vue.use(VueAxios, axios)
 
 // 封装axios
@@ -112,14 +113,15 @@ router.beforeEach((to, from, next) => {
   } else {
     post('yanzhenglogin.php').then(response => {
       // 判断登录信息过期没有,同时权限隔离
-      if (response.data.errCode === 401) {
-        router.replace({
-          path: '/',
-          query: {
-            redirect: to.fullPath
-          }
+      if (response.data.errCode === 401 || response.data.errCode === 404) {
+        // 清除本地token
+        window.localStorage.removeItem('token')
+        //  跳转路由
+        router.push({
+          path: '/'
         })
-      } else if (to.path === '/') {
+      }
+      if (to.path === '/' && window.localStorage.getItem('token')) {
         if (response.data.power === '1') {
           router.push({
             path: '/znctgly'
@@ -131,25 +133,21 @@ router.beforeEach((to, from, next) => {
         }
         next()
       } else if (to.path === '/znctgly' && response.data.power !== '1') {
-        router.replace({
-          path: '/',
-          query: {
-            redirect: to.fullPath
-          }
+        router.push({
+          path: '/'
         })
       } else if (to.path === '/znctuser' && response.data.power !== '0') {
-        router.replace({
-          path: '/',
-          query: {
-            redirect: to.fullPath
-          }
+        router.push({
+          path: '/'
         })
-      } else {
-        // 用户信息添加到sessionstorage
-        window.sessionStorage.setItem('id', response.data.id)
-        window.sessionStorage.setItem('name', response.data.name)
-        window.sessionStorage.setItem('avatar', response.data.avatar)
       }
+      // 数据保存到session
+      window.sessionStorage.setItem('id', response.data.id)
+      window.sessionStorage.setItem('name', response.data.name)
+      window.sessionStorage.setItem('avatar', response.data.avatar)
+      store.commit('addUserInfo', {
+        name: window.sessionStorage.getItem('name')
+      })
     })
     next()
   }
