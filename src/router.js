@@ -7,6 +7,11 @@ import Yhxy from './components/yhxy.vue'
 import Znctgly from './views/znctgly.vue'
 import Znctuser from './views/znctuser.vue'
 import Znctusercontent from './components/znctuserContent.vue'
+import Znctusercontent2 from './components/znctuserContent2.vue'
+import Znctusercontent3 from './components/znctuserContent3.vue'
+import Znctusercontent4 from './components/znctuserContent4.vue'
+import Znctusercontent5 from './components/znctuserContent5.vue'
+import Znctusercontent5sjzs from './components/znctuserContent5sjzs.vue'
 import Error from './views/404.vue'
 Vue.use(Router)
 
@@ -56,6 +61,31 @@ export default new Router({
           path: 'znctusercontent',
           name: 'znctusercontent',
           component: Znctusercontent
+        },
+        {
+          path: 'znctusercontent2',
+          name: 'znctusercontent2',
+          component: Znctusercontent2
+        },
+        {
+          path: 'znctusercontent3',
+          name: 'znctusercontent3',
+          component: Znctusercontent3
+        },
+        {
+          path: 'znctusercontent4',
+          name: 'znctusercontent4',
+          component: Znctusercontent4
+        },
+        {
+          path: 'znctusercontent5',
+          name: 'znctusercontent5',
+          component: Znctusercontent5
+        },
+        {
+          path: 'znctusercontent5sjzs',
+          name: 'znctusercontent5sjzs',
+          component: Znctusercontent5sjzs
         }
       ]
     },

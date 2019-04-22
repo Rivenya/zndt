@@ -21,7 +21,12 @@ import {
   Badge,
   Menu,
   MenuItem,
-  Submenu
+  Submenu,
+  Pagination,
+  Checkbox,
+  CheckboxGroup,
+  CheckboxButton,
+  Loading
 } from 'element-ui'
 
 Vue.use(Button)
@@ -47,3 +52,8 @@ Vue.use(Badge)
 Vue.use(Menu)
 Vue.use(MenuItem)
 Vue.use(Submenu)
+Vue.use(Pagination)
+Vue.use(Checkbox)
+Vue.use(CheckboxGroup)
+Vue.use(CheckboxButton)
+Vue.use(Loading)

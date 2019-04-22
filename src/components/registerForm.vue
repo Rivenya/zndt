@@ -81,7 +81,6 @@ export default {
         // 发送axios检测用户名是否重复
         this.$get('register.php', { id: value }).then(
           (response) => {
-            console.log(response)
             if (response.data.id == value) {
               this.Form.errmsg = "(*￣︿￣)  账号已存在!"
             }

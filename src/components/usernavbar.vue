@@ -7,16 +7,21 @@
              text-color="#fff"
              active-text-color="white">
       <el-menu-item class="nav"
-                    index="1">
+                    index="znctusercontent">
         <router-link :to="{name:'znctusercontent'}">首页</router-link>
       </el-menu-item>
-      <el-menu-item><a target="_blank">章节智能组卷</a>
+      <el-menu-item index="znctusercontent2"><a target="_blank">
+          <router-link :to="{name:'znctusercontent2'}">章节智能组卷</router-link>
+        </a>
       </el-menu-item>
-      <el-menu-item><a target="_blank">知识点智能组卷</a>
+      <el-menu-item index="znctusercontent3">
+        <router-link :to="{name:'znctusercontent3'}">知识智能组卷</router-link>
       </el-menu-item>
-      <el-menu-item><a target="_blank">综合智能组卷</a>
+      <el-menu-item index="znctusercontent4">
+        <router-link :to="{name:'znctusercontent4'}">知识智能组卷</router-link>
       </el-menu-item>
-      <el-menu-item><a target="_blank">查看试卷</a>
+      <el-menu-item index="znctusercontent5">
+        <router-link :to="{name:'znctusercontent5'}">查看所有试卷</router-link>
       </el-menu-item>
     </el-menu>
   </div>
@@ -25,10 +30,13 @@
 export default {
   data () {
     return {
-      activeIndex: '1'
+      activeIndex: this.$route.name
     }
   },
   methods: {
+
+  },
+  mounted () {
 
   },
 }
@@ -39,9 +47,12 @@ export default {
   margin-top: 2%;
   .el-menu--horizontal > .el-menu-item {
     @include screen(16);
-    padding: 0 1rem;
+    padding: 0;
     a {
       text-decoration: none;
+      display: block;
+      width: 125px;
+      text-align: center;
     }
   }
   .nav {

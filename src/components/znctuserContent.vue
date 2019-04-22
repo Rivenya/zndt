@@ -6,37 +6,44 @@
       <button @click="tri()">我想说:</button>
     </div>
     <div class="help">
-      <div class="help-1"
-           v-if="index1">
-        <h1>用我们组卷系统的三大理由：</h1>
-        <hr />
-        <br />
-        <h1>一：系统更新很快，不会落后</h1>
-        <br />
-        <h1>二：组卷系统丰富，多种选择</h1>
-        <br />
-        <h1>三：服务态度友好，倍感舒适</h1>
-      </div>
-      <div class="help-1"
-           v-if="index2">
-        <h1>我们组卷系统的三大功能：</h1>
-        <hr />
-        <br />
-        <h1>一：章节组卷，自选章节</h1>
-        <br />
-        <h1>二：知识点组卷，自选知识点</h1>
-        <br />
-        <h1>三：综合组卷，全面高效</h1>
-      </div>
+      <transition enter-active-class="animated rollIn"
+                  leave-active-class="animated rollOut"
+                  mode='out-in'>
+        <div class="help-1"
+             v-if="index1"
+             :key="1">
+          <h1>用我们组卷系统的三大理由：</h1>
+          <hr />
+          <br />
+          <h1>一：系统更新很快，不会落后</h1>
+          <br />
+          <h1>二：组卷系统丰富，多种选择</h1>
+          <br />
+          <h1>三：服务态度友好，倍感舒适</h1>
+        </div>
+        <div class="help-1"
+             v-if="index2"
+             :key="2">
+          <h1>我们组卷系统的三大功能：</h1>
+          <hr />
+          <br />
+          <h1>一：章节组卷，自选章节</h1>
+          <br />
+          <h1>二：知识点组卷，自选知识点</h1>
+          <br />
+          <h1>三：综合组卷，全面高效</h1>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
 <script>
+
 export default {
   data () {
     return {
       index1: true,
-      index2: false
+      index2: false,
     }
   },
   methods: {
@@ -53,6 +60,7 @@ export default {
   margin: 0 auto;
   width: 65%;
   display: flex;
+  overflow: hidden;
   .ren {
     position: relative;
     flex: 0.1;
@@ -110,17 +118,19 @@ export default {
       }
     }
   }
-}
-.help {
-  flex: 0.9;
-  .help-1 {
-    width: 80%;
-    margin: 8% auto;
-    h1 {
-      text-align: center;
-      font-weight: 400;
-      color: $color;
-      @include screen(30);
+  .help {
+    position: relative;
+    flex: 0.9;
+    .help-1 {
+      width: 80%;
+      margin: 8% auto;
+      position: absolute;
+      h1 {
+        text-align: center;
+        font-weight: 400;
+        color: $color;
+        @include screen(30);
+      }
     }
   }
 }

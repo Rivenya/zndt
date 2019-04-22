@@ -29,7 +29,8 @@
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item class="clearfix">
-                <router-link to="">个人信息</router-link>
+                <router-link to=""
+                             @click.native="test()">个人信息</router-link>
               </el-dropdown-item>
               <el-dropdown-item class="clearfix">
                 <router-link to=""
@@ -54,6 +55,13 @@ export default {
       window.localStorage.removeItem('token')
       window.sessionStorage.clear()
       this.$router.push('/')
+    },
+    test () {
+      this.$get('test.php').then(
+        res => {
+          console.log(res)
+        }
+      )
     }
   }
 }
