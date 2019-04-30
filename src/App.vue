@@ -17,5 +17,10 @@ body {
   margin: 0px;
   padding: 0px;
 }
+span {
+  &:focus {
+    outline: none !important;
+  }
+}
 </style>
 

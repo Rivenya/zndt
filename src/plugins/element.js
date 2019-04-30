@@ -26,7 +26,11 @@ import {
   Checkbox,
   CheckboxGroup,
   CheckboxButton,
-  Loading
+  Loading,
+  Dialog,
+  Select,
+  Option,
+  MessageBox
 } from 'element-ui'
 
 Vue.use(Button)
@@ -57,3 +61,7 @@ Vue.use(Checkbox)
 Vue.use(CheckboxGroup)
 Vue.use(CheckboxButton)
 Vue.use(Loading)
+Vue.use(Dialog)
+Vue.use(Select)
+Vue.use(Option)
+Vue.prototype.$confirm = MessageBox.confirm

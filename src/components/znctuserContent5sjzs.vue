@@ -158,13 +158,21 @@ export default {
   mounted () {
     this.$get('sjzs2.php', { id: this.$route.query.sjId }).then(
       res => {
+        if (res.data.selectInfo === 0) {
+          this.$message({
+            message: "没有这张试卷!",
+            type: "error"
+          })
+          this.$router.push({ name: 'znctusercontent5' })
+          return ""
+        }
         this.xzt = res.data.xz
         this.tkt = res.data.tk
         this.jdt = res.data.jd
         // 处理难度
-        let xz = res.data.xz.length
-        let tk = res.data.tk.length
-        let jd = res.data.jd.length
+        let xz = res.data.xz ? res.data.xz.length : 0
+        let tk = res.data.tk ? res.data.tk.length : 0
+        let jd = res.data.jd ? res.data.jd.length : 0
         let rongyi = 0
         let putong = 0
         let kunnan = 0
@@ -184,6 +192,46 @@ export default {
       }
     )
   },
+  beforeRouteUpdate (to, from, next) {
+    if (to.path === "/znctuser/znctusercontent5sjzs") {
+      this.$get('sjzs2.php', { id: this.$store.state.searchId }).then(
+        res => {
+          if (res.data.selectInfo === 0) {
+            this.$message({
+              message: "没有这张试卷!",
+              type: "error"
+            })
+            this.$router.push({ name: 'znctusercontent5' })
+            return ""
+          }
+          this.xzt = res.data.xz
+          this.tkt = res.data.tk
+          this.jdt = res.data.jd
+          // 处理难度
+          let xz = res.data.xz ? res.data.xz.length : 0
+          let tk = res.data.tk ? res.data.tk.length : 0
+          let jd = res.data.jd ? res.data.jd.length : 0
+          let rongyi = 0
+          let putong = 0
+          let kunnan = 0
+          res.data.xz.forEach(value => {
+            parseInt(value.difficult) === 1 ? rongyi++ : parseInt(value.difficult) === 2 ? putong++ : parseInt(value.difficult) === 3 ? kunnan++ : ""
+          });
+          res.data.tk.forEach(value => {
+            parseInt(value.difficult) === 1 ? rongyi++ : parseInt(value.difficult) === 2 ? putong++ : parseInt(value.difficult) === 3 ? kunnan++ : ""
+          });
+          res.data.jd.forEach(value => {
+            parseInt(value.difficult) === 1 ? rongyi++ : parseInt(value.difficult) === 2 ? putong++ : parseInt(value.difficult) === 3 ? kunnan++ : ""
+          });
+          //渲染图表
+          this.draw(xz, tk, jd, rongyi, putong, kunnan)
+          //综合难度打分
+          this.dafen = parseInt((rongyi * 1 + putong * 2 + kunnan * 3) / ((rongyi + putong + kunnan) * 3) * 100)
+          next()
+        }
+      )
+    }
+  }
 }
 </script>
 <style lang="scss" >

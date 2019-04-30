@@ -7,7 +7,7 @@
               :lg="6"
               :xl="6">
         <div class="grid-content">
-          中学数学在线出题系统
+          <router-link to="/"> 中学数学在线出题系统</router-link>
         </div>
       </el-col>
       <el-col :xs="0"
@@ -30,7 +30,7 @@
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item class="clearfix">
                 <router-link to=""
-                             @click.native="test()">个人信息</router-link>
+                             @click.native="xiugia()">个人信息</router-link>
               </el-dropdown-item>
               <el-dropdown-item class="clearfix">
                 <router-link to=""
@@ -56,12 +56,11 @@ export default {
       window.sessionStorage.clear()
       this.$router.push('/')
     },
-    test () {
-      this.$get('test.php').then(
-        res => {
-          console.log(res)
-        }
-      )
+    xiugia () {
+      this.$router.push({
+        name: 'yhsetting',
+        query: { 'id': this.$store.getters.getUserName }
+      })
     }
   }
 }
@@ -71,6 +70,7 @@ export default {
 .contenthead {
   color: white;
   width: 100%;
+  background: #48c9b0;
   height: 40px;
   .grid-content {
     min-height: 36px;
@@ -92,6 +92,10 @@ export default {
     &:hover {
       cursor: pointer;
     }
+  }
+  a {
+    text-decoration: none;
+    color: white;
   }
 }
 .el-dropdown-menu {

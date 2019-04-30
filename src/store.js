@@ -10,7 +10,8 @@ export default new Vuex.Store({
     userInfo: {
       id: window.sessionStorage.getItem('id'),
       name: window.sessionStorage.getItem('name'),
-      avatar: window.sessionStorage.getItem('avatar')
+      avatar: window.sessionStorage.getItem('avatar'),
+      searchId:null
     }
   },
   mutations: {
@@ -21,6 +22,10 @@ export default new Vuex.Store({
     // 页面加载让vuex获得数据
     addUserInfo(state, obj) {
       state.userInfo = obj
+    },
+    //改变搜索id的数据
+    changeSearchId(state,n){
+      state.searchId = n
     }
   },
   getters: {

@@ -49,7 +49,11 @@ export default {
   },
   methods: {
     submit (search) {
-      console.log(search)
+      this.$store.commit('changeSearchId', search)
+      this.$router.push({
+        name: 'znctusercontent5sjzs', query: { sjId: search }
+      })
+      this.search = ""
     },
     help () {
       this.$message({        message: "您只需要在这里输入试卷的ID就可以快速搜索",

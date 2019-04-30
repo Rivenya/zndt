@@ -131,8 +131,7 @@ router.beforeEach((to, from, next) => {
             path: '/znctuser'
           })
         }
-        next()
-      } else if (to.path === '/znctgly' && response.data.power !== '1') {
+      } else if (to.path === '/znctgly/*' && response.data.power !== '1') {
         router.push({
           path: '/'
         })
@@ -140,6 +139,10 @@ router.beforeEach((to, from, next) => {
         router.push({
           path: '/'
         })
+      } else if (to.meta.quanxian === 'user') {
+        if (response.data.power !== '0') {
+          router.go(-1)
+        }
       }
       // 数据保存到session
       window.sessionStorage.setItem('id', response.data.id)
